@@ -47,3 +47,15 @@ rag-doc/
 ├── Dockerfile.frontend
 ├── pyproject.toml                # Dependencies
 └── README.md
+
+
+#  We use ruff (a fast modern linter). It catches undefined variables, unused imports, and syntax errors.
+uv run ruff check .
+# We use mypy. This checks if you are passing a String where an Integer is expected, which is usually what Java's compiler does.
+uv run mypy .
+
+# RUN THE SERVER
+uv run uvicorn app.main:app --reload
+
+# run the ui 
+uv run streamlit run ui/app.py
