@@ -13,12 +13,24 @@ def get_storage_service() -> StorageService:
 
 
 @router.post("/init", response_model=UploadInitResponse)
-async def init_upload(filename: str) -> UploadInitResponse:
+async def init_upload(filename: str, file_hash: str = None) -> UploadInitResponse:
+    """
+    Generate SAS URL for upload.
+    If file_hash provided, uses hash-based naming for idempotency.
+    """
     storage_service = get_storage_service()
     """ this will generate a sas url and upload the file in blob storage """
-    blob_name, upload_url = storage_service.generate_sas_url(filename)
+    blob_name, upload_url, is_existing = storage_service.generate_sas_url(
+        filename, 
+        file_hash=file_hash
+    )
 
-    return UploadInitResponse(blob_name=blob_name, blob_url=upload_url, expire_minutes=15)
+    return UploadInitResponse(
+        blob_name=blob_name, 
+        blob_url=upload_url, 
+        expire_minutes=15,
+        is_existing=is_existing
+    )
 
 
 # check if the upload is complete
