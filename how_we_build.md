@@ -48,3 +48,5 @@ Store book.json in Blob         ✅ Done (in "processed-books")
                                                Store summary.json      🆕
                                                (in "processed-books")
 
+# Building the Summarization model
+

@@ -13,7 +13,7 @@ def get_storage_service() -> StorageService:
 
 
 @router.post("/init", response_model=UploadInitResponse)
-async def init_upload(filename: str, file_hash: str = None) -> UploadInitResponse:
+async def upload(filename: str, file_hash: str = None) -> UploadInitResponse:
     """
     Generate SAS URL for upload.
     If file_hash provided, uses hash-based naming for idempotency.
